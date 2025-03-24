@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import vehicleData from "../../img/vehicle.json";
-import ModalVehicle from './ModalVehicle.jsx'; // Importa el componente ModalVehicle
+import ModalVehicle from './ModalVehicle.jsx';
+import { Context } from '../store/appContext'; // Importamos el contexto
 
 const Vehicle = ({ name, passengers, cargo_capacity, max_atmosphering_speed, id, model, manufacturer, cost_in_credits, length, crew, vehicle_class }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { actions } = useContext(Context); // Obtenemos las acciones del contexto
 
   const vehicleImage = vehicleData?.vehicles?.find(vehicle => vehicle.id === id)?.image || "https://via.placeholder.com/300";
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleAddFavorite = () => {
+    actions.addFavorite('vehicle', {
+      id,
+      name,
+      image: vehicleImage,
+      model,
+      manufacturer,
+      cost_in_credits,
+      length,
+      max_atmosphering_speed,
+      crew,
+      passengers,
+      cargo_capacity,
+      vehicle_class
+    });
+  };
 
   return (
     <>
@@ -21,12 +40,16 @@ const Vehicle = ({ name, passengers, cargo_capacity, max_atmosphering_speed, id,
           <p className="card-text">Max. Atm. Speed: <strong>{max_atmosphering_speed}</strong></p>
           <div className='d-flex justify-content-between'>
             <button className="btn btn-primary" onClick={openModal}>Learn more</button>
-            <button className='btn btn-dark'>Like</button>
+            <button 
+              className='btn btn-dark' 
+              onClick={handleAddFavorite}
+            >
+              Like
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Modal */}
       <ModalVehicle
         isOpen={isModalOpen}
         onClose={closeModal}
