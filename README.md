@@ -12,6 +12,7 @@
 1. Install the packages:
 ```
 $ npm install
+$ npm install react-bootstrap bootstrap
 ```
 2. Create a .env file:
 ```
