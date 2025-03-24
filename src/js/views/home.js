@@ -3,7 +3,7 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import People from "../component/People.jsx";
 import Planet from "../component/Planet.jsx";
-import Vehicle from "../component/Vehicle.jsx"; // Asegúrate de importar Vehicle
+import Vehicle from "../component/Vehicle.jsx";
 
 export const Home = () => {
   const { actions, store } = useContext(Context);
@@ -30,9 +30,13 @@ export const Home = () => {
               key={index}
               name={personaje.name}
               gender={personaje.gender}
-              hair={personaje.hair_color}
-              eye={personaje.eye_color}
+              hair_color={personaje.hair_color}
+              eye_color={personaje.eye_color}
               id={index}
+              height={personaje.height}
+              mass={personaje.mass}
+              skin_color={personaje.skin_color}
+              birth_year={personaje.birth_year}
             />
           ))
         ) : (
