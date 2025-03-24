@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import peopleData from "../../img/people.json";
-import ModalPeople from './ModalPeople.jsx'; // Importa el componente ModalPeople
+import ModalPeople from './ModalPeople.jsx';
+import { Context } from '../store/appContext'; // Importamos el contexto
 
 const People = ({ name, gender, hair_color, eye_color, id, height, mass, skin_color, birth_year }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { actions } = useContext(Context); // Obtenemos las acciones del contexto
 
   const peopleImage = peopleData.people.find(person => person.id === id)?.image || "https://via.placeholder.com/300";
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleAddFavorite = () => {
+    actions.addFavorite('people', {
+      id,
+      name,
+      image: peopleImage,
+      gender,
+      hair_color,
+      eye_color,
+      height,
+      mass,
+      skin_color,
+      birth_year
+    });
+  };
 
   return (
     <>
@@ -21,12 +38,16 @@ const People = ({ name, gender, hair_color, eye_color, id, height, mass, skin_co
           <p className="card-text">Eye Color: <strong>{eye_color}</strong></p>
           <div className='d-flex justify-content-between'>
             <button className="btn btn-primary" onClick={openModal}>Learn more</button>
-            <button className='btn btn-dark'>Like</button>
+            <button 
+              className='btn btn-dark' 
+              onClick={handleAddFavorite}
+            >
+              Like
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Modal */}
       <ModalPeople
         isOpen={isModalOpen}
         onClose={closeModal}
