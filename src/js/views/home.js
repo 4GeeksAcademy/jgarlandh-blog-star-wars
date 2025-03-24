@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import People from "../component/People.jsx";
 import Planet from "../component/Planet.jsx";
 import Vehicle from "../component/Vehicle.jsx";
+import FavoritesDropdown from "../component/FavoritesDropdown.jsx";
 
 export const Home = () => {
   const { actions, store } = useContext(Context);
@@ -20,8 +21,15 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-5">
+      {/* Dropdown de Favoritos - Posicionado en la esquina superior derecha */}
+      <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1000 }}>
+        <FavoritesDropdown />
+      </div>
+      
       <h1>Star Wars</h1>
       <br />
+      
+      {/* Sección de Personajes */}
       <h2>Personajes</h2>
       <div className="d-flex flex-row overflow-scroll">
         {store.characters && store.characters.length > 0 ? (
@@ -44,6 +52,8 @@ export const Home = () => {
         )}
       </div>
       <br />
+      
+      {/* Sección de Planetas */}
       <h2>Planetas</h2>
       <div className="d-flex flex-row overflow-scroll">
         {store.planets && store.planets.length > 0 ? (
@@ -67,6 +77,8 @@ export const Home = () => {
         )}
       </div>
       <br />
+      
+      {/* Sección de Vehículos */}
       <h2>Vehículos</h2>
       <div className="d-flex flex-row overflow-scroll">
         {store.vehicles && store.vehicles.length > 0 ? (
