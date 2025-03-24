@@ -54,6 +54,12 @@ export const Home = () => {
               population={planeta.population}
               terrain={planeta.terrain}
               id={index}
+              rotation_period={planeta.rotation_period}
+              orbital_period={planeta.orbital_period}
+              diameter={planeta.diameter}
+              climate={planeta.climate}
+              gravity={planeta.gravity}
+              surface_water={planeta.surface_water}
             />
           ))
         ) : (
@@ -72,6 +78,12 @@ export const Home = () => {
               cargo_capacity={vehiculo.cargo_capacity}
               max_atmosphering_speed={vehiculo.max_atmosphering_speed}
               id={index}
+              model={vehiculo.model}
+              manufacturer={vehiculo.manufacturer}
+              cost_in_credits={vehiculo.cost_in_credits}
+              length={vehiculo.length}
+              crew={vehiculo.crew}
+              vehicle_class={vehiculo.vehicle_class}
             />
           ))
         ) : (
