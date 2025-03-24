@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import planetData from "../../img/planet.json";
-import ModalPlanet from './ModalPlanet.jsx'; // Importa el componente ModalPlanet
+import ModalPlanet from './ModalPlanet.jsx';
+import { Context } from '../store/appContext'; // Importamos el contexto
 
 const Planet = ({ name, population, terrain, id, rotation_period, orbital_period, diameter, climate, gravity, surface_water }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { actions } = useContext(Context); // Obtenemos las acciones del contexto
 
   const planetImage = planetData?.planets?.find(planet => planet.id === id)?.image || "https://via.placeholder.com/300";
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleAddFavorite = () => {
+    actions.addFavorite('planet', {
+      id,
+      name,
+      image: planetImage,
+      population,
+      terrain,
+      rotation_period,
+      orbital_period,
+      diameter,
+      climate,
+      gravity,
+      surface_water
+    });
+  };
 
   return (
     <>
@@ -20,12 +38,16 @@ const Planet = ({ name, population, terrain, id, rotation_period, orbital_period
           <p className="card-text">Terrain: <strong>{terrain}</strong></p>
           <div className='d-flex justify-content-between'>
             <button className="btn btn-primary" onClick={openModal}>Learn more</button>
-            <button className='btn btn-dark'>Like</button>
+            <button 
+              className='btn btn-dark' 
+              onClick={handleAddFavorite}
+            >
+              Like
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Modal */}
       <ModalPlanet
         isOpen={isModalOpen}
         onClose={closeModal}
