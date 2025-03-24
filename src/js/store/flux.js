@@ -13,6 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			const response = await fetch("https://swapi.dev/api/people")
 			console.log (response)	
 			const data = await response.json() 
+			console.log("AQUI LOS PERSONAJES CARGADOS", "Characters loaded:", data.results);
 			console.log (data.results)
 			setStore({characters:data.results})
 			} catch (error) {
@@ -25,6 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch("https://swapi.dev/api/planets/")
 				console.log (response)	
 				const data = await response.json() 
+				console.log("AQUI LOS PLANETAS CARGADOS", "Planets loaded:", data.results);
 				console.log (data.results)
 				setStore({planets:data.results})
 				} catch (error) {
