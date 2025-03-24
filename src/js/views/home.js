@@ -3,6 +3,7 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import People from "../component/People.jsx";
 import Planet from "../component/Planet.jsx";
+import Vehicle from "../component/Vehicle.jsx"; // Asegúrate de importar Vehicle
 
 export const Home = () => {
   const { actions, store } = useContext(Context);
@@ -10,10 +11,12 @@ export const Home = () => {
   useEffect(() => {
     actions.getCharacters();
     actions.getPlanets();
+    actions.getVehicles();
   }, []);
 
   console.log("Characters in store:", store.characters);
   console.log("Planets in store:", store.planets);
+  console.log("Vehicles in store:", store.vehicles);
 
   return (
     <div className="text-center mt-5">
@@ -51,6 +54,24 @@ export const Home = () => {
           ))
         ) : (
           <p>No se han cargado planetas</p>
+        )}
+      </div>
+      <br />
+      <h2>Vehículos</h2>
+      <div className="d-flex flex-row overflow-scroll">
+        {store.vehicles && store.vehicles.length > 0 ? (
+          store.vehicles.map((vehiculo, index) => (
+            <Vehicle
+              key={index}
+              name={vehiculo.name}
+              passengers={vehiculo.passengers}
+              cargo_capacity={vehiculo.cargo_capacity}
+              max_atmosphering_speed={vehiculo.max_atmosphering_speed}
+              id={index}
+            />
+          ))
+        ) : (
+          <p>No se han cargado vehículos</p>
         )}
       </div>
     </div>
