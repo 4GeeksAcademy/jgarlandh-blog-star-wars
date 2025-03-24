@@ -39,6 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch("https://swapi.dev/api/vehicles/")
 					console.log (response)	
 					const data = await response.json() 
+					console.log("AQUI LOS VEHICULOS CARGADOS", "Vehicles loaded:", data.results);
 					console.log (data.results)
 					setStore({vehicles:data.results})
 					} catch (error) {
